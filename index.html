@@ -1,247 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Grocery List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-        .input-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .input-group {
-            display: flex;
-            gap: 10px;
-            flex: 1;
-        }
-        input {
-            padding: 8px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        #itemInput {
-            flex: 2;
-        }
-        #quantityInput, #priceInput {
-            width: 100px;
-        }
-        button {
-            padding: 8px 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .item {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            background-color: white;
-            margin-bottom: 8px;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .item.completed {
-            background-color: #e8f5e9;
-        }
-        .item.completed span {
-            text-decoration: line-through;
-            color: #666;
-        }
-        .item span {
-            margin: 0 10px;
-        }
-        .item-name {
-            flex: 2;
-        }
-        .item-quantity {
-            width: 80px;
-            text-align: center;
-        }
-        .item-price {
-            width: 100px;
-            text-align: right;
-        }
-        .item-total {
-            width: 100px;
-            text-align: right;
-            font-weight: bold;
-        }
-        .delete-btn {
-            background-color: #f44336;
-        }
-        .delete-btn:hover {
-            background-color: #da190b;
-        }
-        .total-container {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: white;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            text-align: right;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        .header-row {
-            display: flex;
-            padding: 10px;
-            background-color: #e0e0e0;
-            border-radius: 4px;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-    </style>
-  </head>
-  <body>
-    <h1>Grocery List</h1>
-    <div class="input-container">
-        <div class="input-group">
-            <input type="text" id="itemInput" placeholder="Add a new item...">
-            <input type="number" id="quantityInput" placeholder="Qty" min="1" value="1">
-            <input type="number" id="priceInput" placeholder="Price" min="0" step="0.01" value="0.00">
-        </div>
-        <button onclick="addItem()">Add Item</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grocery List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+    .input-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .input-group {
+      display: flex;
+      gap: 10px;
+      flex: 1;
+    }
+    input {
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    #itemInput {
+      flex: 2;
+    }
+    #quantityInput, #priceInput {
+      width: 100px;
+    }
+    button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background-color: white;
+      margin-bottom: 8px;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .item.completed {
+      background-color: #e8f5e9;
+    }
+    .item.completed input[type="text"] {
+      text-decoration: line-through;
+      color: #666;
+    }
+    .item input[type="text"],
+    .item input[type="number"] {
+      margin: 0 10px;
+      font-size: 16px;
+      padding: 4px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .item-name {
+      flex: 2;
+    }
+    .item-quantity {
+      width: 80px;
+      text-align: center;
+    }
+    .item-price {
+      width: 100px;
+      text-align: right;
+    }
+    .item-total {
+      width: 100px;
+      text-align: right;
+      font-weight: bold;
+    }
+    .delete-btn {
+      background-color: #f44336;
+    }
+    .delete-btn:hover {
+      background-color: #da190b;
+    }
+    .total-container {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: white;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      text-align: right;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    .header-row {
+      display: flex;
+      padding: 10px;
+      background-color: #e0e0e0;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .header-row span {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Grocery List</h1>
+  <div class="input-container">
+    <div class="input-group">
+      <input type="text" id="itemInput" placeholder="Add a new item...">
+      <input type="number" id="quantityInput" placeholder="Qty" min="1" value="1">
+      <input type="number" id="priceInput" placeholder="Price" min="0" step="0.01" value="0.00">
     </div>
-    
-    <div class="header-row">
-        <span class="item-name">Item</span>
-        <span class="item-quantity">Quantity</span>
-        <span class="item-price">Price</span>
-        <span class="item-total">Total</span>
-        <span style="width: 100px;"></span>
-    </div>
-    
-    <div id="itemList"></div>
-    <div class="total-container">
-        Total: $<span id="grandTotal">0.00</span>
-    </div>
+    <button onclick="addItem()">Add Item</button>
+  </div>
 
-    <script>
-        // Load items from localStorage
-        let items = JSON.parse(localStorage.getItem('groceryItems')) || [];
+  <div class="header-row">
+    <span class="item-name">Item</span>
+    <span class="item-quantity">Quantity</span>
+    <span class="item-price">Price</span>
+    <span class="item-total">Total</span>
+    <span style="width: 100px;"></span>
+  </div>
 
-        // Function to save items to localStorage
-        function saveItems() {
-            localStorage.setItem('groceryItems', JSON.stringify(items));
-        }
+  <div id="itemList"></div>
+  <div class="total-container">
+    Total: $<span id="grandTotal">0.00</span>
+  </div>
 
-        // Function to format currency
-        function formatCurrency(amount) {
-            return parseFloat(amount).toFixed(2);
-        }
+  <script>
+    let items = JSON.parse(localStorage.getItem('groceryItems')) || [];
 
-        // Function to calculate item total
-        function calculateItemTotal(quantity, price) {
-            return formatCurrency(quantity * price);
-        }
+    function saveItems() {
+      localStorage.setItem('groceryItems', JSON.stringify(items));
+    }
 
-        // Function to update grand total
-        function updateGrandTotal() {
-            const total = items.reduce((sum, item) => {
-                return sum + (item.quantity * item.price);
-            }, 0);
-            document.getElementById('grandTotal').textContent = formatCurrency(total);
-        }
+    function formatCurrency(amount) {
+      return parseFloat(amount).toFixed(2);
+    }
 
-        // Function to add a new item
-        function addItem() {
-            const input = document.getElementById('itemInput');
-            const quantityInput = document.getElementById('quantityInput');
-            const priceInput = document.getElementById('priceInput');
-            
-            const name = input.value.trim();
-            const quantity = parseInt(quantityInput.value) || 1;
-            const price = parseFloat(priceInput.value) || 0;
-            
-            if (name) {
-                const newItem = {
-                    id: Date.now().toString(),
-                    name: name,
-                    quantity: quantity,
-                    price: price,
-                    completed: false,
-                    createdAt: new Date().toISOString()
-                };
-                
-                items.push(newItem);
-                saveItems();
-                renderItems();
-                input.value = '';
-                quantityInput.value = '1';
-                priceInput.value = '0.00';
-            }
-        }
+    function calculateItemTotal(quantity, price) {
+      return formatCurrency(quantity * price);
+    }
 
-        // Function to toggle item completion
-        function toggleItem(id) {
-            const item = items.find(item => item.id === id);
-            if (item) {
-                item.completed = !item.completed;
-                saveItems();
-                renderItems();
-            }
-        }
+    function updateGrandTotal() {
+      const total = items.reduce((sum, item) => sum + (item.quantity * item.price), 0);
+      document.getElementById('grandTotal').textContent = formatCurrency(total);
+    }
 
-        // Function to delete an item
-        function deleteItem(id) {
-            items = items.filter(item => item.id !== id);
-            saveItems();
-            renderItems();
-        }
+    function addItem() {
+      const input = document.getElementById('itemInput');
+      const quantityInput = document.getElementById('quantityInput');
+      const priceInput = document.getElementById('priceInput');
 
-        // Function to render all items
-        function renderItems() {
-            const itemList = document.getElementById('itemList');
-            itemList.innerHTML = '';
-            
-            items.forEach(item => {
-                const itemElement = document.createElement('div');
-                itemElement.className = `item ${item.completed ? 'completed' : ''}`;
-                const itemTotal = calculateItemTotal(item.quantity, item.price);
-                
-                itemElement.innerHTML = `
-                    <input type="checkbox" ${item.completed ? 'checked' : ''} 
-                           onclick="toggleItem('${item.id}')">
-                    <span class="item-name">${item.name}</span>
-                    <span class="item-quantity">${item.quantity}</span>
-                    <span class="item-price">$${formatCurrency(item.price)}</span>
-                    <span class="item-total">$${itemTotal}</span>
-                    <button class="delete-btn" onclick="deleteItem('${item.id}')">Delete</button>
-                `;
-                itemList.appendChild(itemElement);
-            });
-            
-            updateGrandTotal();
-        }
+      const name = input.value.trim();
+      const quantity = parseInt(quantityInput.value) || 1;
+      const price = parseFloat(priceInput.value) || 0;
 
-        // Add event listener for Enter key
-        document.getElementById('itemInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                addItem();
-            }
-        });
+      if (name) {
+        const newItem = {
+          id: Date.now().toString(),
+          name,
+          quantity,
+          price,
+          completed: false,
+          createdAt: new Date().toISOString()
+        };
 
-        // Initial render
+        items.push(newItem);
+        saveItems();
         renderItems();
-    </script>
-  </body>
-</html> 
+
+        input.value = '';
+        quantityInput.value = '1';
+        priceInput.value = '0.00';
+      }
+    }
+
+    function toggleItem(id) {
+      const item = items.find(item => item.id === id);
+      if (item) {
+        item.completed = !item.completed;
+        saveItems();
+        renderItems();
+      }
+    }
+
+    function deleteItem(id) {
+      items = items.filter(item => item.id !== id);
+      saveItems();
+      renderItems();
+    }
+
+    function updateName(id, newName) {
+      const item = items.find(item => item.id === id);
+      if (item) {
+        item.name = newName.trim();
+        saveItems();
+        renderItems();
+      }
+    }
+
+    function updateQuantity(id, newQuantity) {
+      const item = items.find(item => item.id === id);
+      if (item) {
+        item.quantity = parseInt(newQuantity) || 1;
+        saveItems();
+        renderItems();
+      }
+    }
+
+    function updatePrice(id, newPrice) {
+      const item = items.find(item => item.id === id);
+      if (item) {
+        item.price = parseFloat(newPrice) || 0;
+        saveItems();
+        renderItems();
+      }
+    }
+
+    function renderItems() {
+      const itemList = document.getElementById('itemList');
+      itemList.innerHTML = '';
+
+      items.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.className = `item ${item.completed ? 'completed' : ''}`;
+
+        itemElement.innerHTML = `
+          <input type="checkbox" ${item.completed ? 'checked' : ''} onclick="toggleItem('${item.id}')">
+          <input type="text" class="item-name" value="${item.name}" onchange="updateName('${item.id}', this.value)">
+          <input type="number" class="item-quantity" value="${item.quantity}" min="1" onchange="updateQuantity('${item.id}', this.value)">
+          <input type="number" class="item-price" value="${item.price}" min="0" step="0.01" onchange="updatePrice('${item.id}', this.value)">
+          <span class="item-total">$${calculateItemTotal(item.quantity, item.price)}</span>
+          <button class="delete-btn" onclick="deleteItem('${item.id}')">Delete</button>
+        `;
+
+        itemList.appendChild(itemElement);
+      });
+
+      updateGrandTotal();
+    }
+
+    document.getElementById('itemInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') addItem();
+    });
+
+    renderItems();
+  </script>
+</body>
+</html>
